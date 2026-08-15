@@ -1,2 +1,41 @@
-<h1>Tasks#show</h1>
-<p>Find me in app/views/tasks/show.html.erb</p>
+<div class="task-show">
+  <h1>Task Details</h1>
+
+  <div class="task-card">
+    <h2>Buy groceries</h2>
+    <p>Milk, eggs, bread, and coffee</p>
+    <p>Status: <span class="status pending">🕒 Pending</span></p>
+  </div>
+
+  <div class="task-actions">
+    <%= link_to "← Back to All Tasks", tasks_path, class: "btn back" %>
+  </div>
+</div>
+
+<style>
+  .task-show {
+    max-width: 500px;
+    margin: 40px auto;
+    font-family: Arial, sans-serif;
+  }
+  .task-card {
+    background: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+  }
+  .task-card h2 {
+    margin-top: 0;
+  }
+  .status.pending { color: orange; font-weight: bold; }
+  .status.done { color: green; font-weight: bold; }
+  .btn {
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    background: #888;
+  }
+</style>
