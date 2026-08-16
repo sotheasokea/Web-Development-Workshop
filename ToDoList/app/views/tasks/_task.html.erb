@@ -6,9 +6,16 @@
           class: "h-5 w-5 shrink-0 accent-indigo-500 rounded border-slate-600 focus:ring-0 focus:ring-offset-0 cursor-pointer" %>
     <% end %>
     
-    <span class="text-sm font-medium truncate group-has-[:checked]/item:line-through group-has-[:checked]/item:text-slate-500 <%= task.complete ? 'line-through text-slate-500' : 'text-slate-200' %>">
-      <%= task.title %>
-    </span>
+    <div class="flex flex-col min-w-0 flex-1">
+      <span class="text-sm font-medium truncate group-has-[:checked]/item:line-through group-has-[:checked]/item:text-slate-500 <%= task.complete ? 'line-through text-slate-500' : 'text-slate-200' %>">
+        <%= task.title %>
+      </span>
+      
+      <!-- Timestamp Display -->
+      <span class="text-[10px] text-slate-500 mt-0.5">
+        Added <%= time_ago_in_words(task.created_at) %> ago
+      </span>
+    </div>
   </div>
 
   <%= button_to task_path(task), 
