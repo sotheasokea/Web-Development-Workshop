@@ -1,29 +1,19 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all
-  end
-
-  def show
-    # @task = Task.find(params[:id])
-  end
-
-  def new
+    @pending_tasks = Task.where(complete: [false, nil])
+    @completed_tasks = Task.where(complete: true)
   end
 
   def create
     @task = Task.new(task_params)
-
     respond_to do |format|
       if @task.save
-        format.turbo_stream # Renders create.turbo_stream.erb
+        format.turbo_stream
         format.html { redirect_to tasks_path }
       else
         format.html { render :index, status: :unprocessable_entity }
       end
     end
-  end
-
-  def edit
   end
 
   def update
@@ -50,5 +40,4 @@ class TasksController < ApplicationController
   def task_params
     params.require(:task).permit(:title, :complete)
   end
-
 end

@@ -1,7 +1,5 @@
-<%# Appends the new task to the element with id="tasks" %>
-<%= turbo_stream.append "tasks", partial: "tasks/task", locals: { task: @task } %>
+<%= turbo_stream.append "pending_tasks", partial: "tasks/task", locals: { task: @task } %>
 
-<%# Resets the form input cleanly by replacing with a rendered partial/form %>
 <%= turbo_stream.replace "new_task_form" do %>
   <%= form_with(model: Task.new, id: "new_task_form", class: "flex flex-col sm:flex-row gap-2 mb-6") do |f| %>
     <%= f.text_field :title, 
@@ -13,9 +11,8 @@
   <% end %>
 <% end %>
 
-<%# Updates the task counter %>
 <%= turbo_stream.replace "tasks_count" do %>
   <turbo-frame id="tasks_count">
-    <%= Task.count %> <%= "item".pluralize(Task.count) %>
+    <%= Task.where(complete: [false, nil]).count %> pending
   </turbo-frame>
 <% end %>

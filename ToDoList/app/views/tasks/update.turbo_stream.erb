@@ -1,11 +1,13 @@
-<%# Replaces the specific task item with its updated state %>
-<%= turbo_stream.replace dom_id(@task) do %>
-  <%= render partial: "tasks/task", locals: { task: @task } %>
-<% end %>
+<%# 1. Remove task from current location %>
+<%= turbo_stream.remove dom_id(@task) %>
 
-<%# Optional: Updates counter if needed %>
+<%# 2. Append task to its new section based on completion status %>
+<% target_container = @task.complete? ? "completed_tasks" : "pending_tasks" %>
+<%= turbo_stream.append target_container, partial: "tasks/task", locals: { task: @task } %>
+
+<%# 3. Update pending count %>
 <%= turbo_stream.replace "tasks_count" do %>
   <turbo-frame id="tasks_count">
-    <%= Task.count %> <%= "item".pluralize(Task.count) %>
+    <%= Task.where(complete: [false, nil]).count %> pending
   </turbo-frame>
 <% end %>
