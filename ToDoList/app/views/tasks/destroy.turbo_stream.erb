@@ -6,3 +6,10 @@
     <%= Task.where(complete: [false, nil]).count %> pending
   </turbo-frame>
 <% end %>
+
+<%# Update Completed Count %>
+<%= turbo_stream.replace "completed_tasks_count" do %>
+  <turbo-frame id="completed_tasks_count">
+    <%= Task.where(complete: true).count %> completed
+  </turbo-frame>
+<% end %>
