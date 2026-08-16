@@ -1,0 +1,23 @@
+<%# Appends the new task to the element with id="tasks" using the partial %>
+<%= turbo_stream.append "tasks" do %>
+  <%= render partial: "tasks/task", locals: { task: @task } %>
+<% end %>
+
+<%# Resets the text input inside the new task form after submission %>
+<%= turbo_stream.replace "new_task_form" do %>
+  <%= form_with(model: Task.new, id: "new_task_form", class: "flex flex-col sm:flex-row gap-2 mb-6") do |f| %>
+    <%= f.text_field :title, 
+        placeholder: "Add a new task...", 
+        required: true, 
+        class: "w-full flex-1 bg-slate-900/80 border border-slate-700 focus:border-indigo-500 rounded-xl px-4 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition" %>
+    <%= f.submit "Add Task", 
+        class: "w-full sm:w-auto bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-md shadow-indigo-600/20 transition cursor-pointer text-center" %>
+  <% end %>
+<% end %>
+
+<%# Updates the counter %>
+<%= turbo_stream.replace "tasks_count" do %>
+  <turbo-frame id="tasks_count">
+    <%= Task.count %> <%= "item".pluralize(Task.count) %>
+  </turbo-frame>
+<% end %>
