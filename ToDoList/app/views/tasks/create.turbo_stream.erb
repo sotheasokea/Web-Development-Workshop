@@ -1,9 +1,9 @@
-<%# Appends the new task to the element with id="tasks" using the partial %>
+<%# Appends the new task to the element with id="tasks" %>
 <%= turbo_stream.append "tasks" do %>
   <%= render partial: "tasks/task", locals: { task: @task } %>
 <% end %>
 
-<%# Resets the text input inside the new task form after submission %>
+<%# Resets the form input %>
 <%= turbo_stream.replace "new_task_form" do %>
   <%= form_with(model: Task.new, id: "new_task_form", class: "flex flex-col sm:flex-row gap-2 mb-6") do |f| %>
     <%= f.text_field :title, 

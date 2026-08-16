@@ -27,15 +27,28 @@ class TasksController < ApplicationController
   end
 
   def update
+    @task = Task.find(params[:id])
+    if @task.update(task_params)
+      respond_to do |format|
+        format.html { redirect_to tasks_path }
+        format.turbo_stream
+      end
+    end
   end
 
   def destroy
+    @task = Task.find(params[:id])
+    @task.destroy
+    respond_to do |format|
+      format.html { redirect_to tasks_path }
+      format.turbo_stream
+    end
   end
 
   private
 
   def task_params
-    params.require(:task).permit(:title, :completed)
+    params.require(:task).permit(:title, :complete)
   end
 
 end
