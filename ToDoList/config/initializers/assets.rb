@@ -3,5 +3,9 @@
 # Version of your assets, change this if you want to expire all your assets.
 Rails.application.config.assets.version = "1.0"
 
+# Tailwind CSS build output is generated into app/assets/builds,
+# and Rails must include that directory in the asset load path.
+Rails.application.config.assets.paths << Rails.root.join("app/assets/builds")
+
 # Add additional assets to the asset load path.
 # Rails.application.config.assets.paths << Emoji.images_path
