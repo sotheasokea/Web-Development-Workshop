@@ -1,0 +1,9 @@
+<%# Instantly removes the task element from the page without reloading %>
+<%= turbo_stream.remove dom_id(@task) %>
+
+<%# Updates the live task counter %>
+<%= turbo_stream.replace "tasks_count" do %>
+  <turbo-frame id="tasks_count">
+    <%= Task.count %> <%= "item".pluralize(Task.count) %>
+  </turbo-frame>
+<% end %>
